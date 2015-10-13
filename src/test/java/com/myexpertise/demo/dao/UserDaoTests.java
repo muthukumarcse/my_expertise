@@ -20,10 +20,13 @@ public class UserDaoTests extends BaseTests
     @Autowired
     private UserDao userDao;
     
+    @Autowired
+    private RoleDao roleDao;
+    
     private UserDO userDO;
     
     @Before
-    public void init()
+    public void setup()
     {
         userDO =  new UserDO();
         userDO.setActive(true);
@@ -33,7 +36,7 @@ public class UserDaoTests extends BaseTests
         userDO.setPhoneNumber("9659003535");
         userDO.setUserName("Muthu");
         userDO.setCompanyId("RAV-181");
-        userDO.setRole(1);      
+        userDO.setRole(roleDao.getRoleByIdentifier("ADMIN"));      
         userDao.save(userDO);
     }
     

@@ -23,6 +23,9 @@ public class UserServiceTest extends BaseTests
     private UserService userService;
     
     @Autowired
+    private RoleService roleService;
+    
+    @Autowired
     private UserDao userDao;
     
     private UserDO userDO;
@@ -38,7 +41,7 @@ public class UserServiceTest extends BaseTests
         userDO.setPhoneNumber("9659003535");
         userDO.setUserName("Muthu");
         userDO.setCompanyId("RAV-181");
-        userDO.setRole(1);      
+        userDO.setRole(roleService.getRoleByIdentifier("ADMIN"));      
         userDao.save(userDO);
     }
     
