@@ -64,8 +64,9 @@ public class UserDO extends BaseExpertiseDO{
 	@OneToMany(mappedBy = "userDO")
 	private Set<UserSkillSetMapDO> userSkillSetMap;
 	
-	@Column(name = "role")
-	private Integer role;
+	@ManyToOne(fetch=FetchType.LAZY)
+	@JoinColumn(name = "role")
+	private RoleDO role;
 
 	public Integer getIdUser() {
 		return idUser;
@@ -123,12 +124,12 @@ public class UserDO extends BaseExpertiseDO{
 		this.profileImagePath = profileImagePath;
 	}
 
-    public Integer getRole()
+    public RoleDO getRole()
     {
         return role;
     }
 
-    public void setRole(Integer role)
+    public void setRole(RoleDO role)
     {
         this.role = role;
     }

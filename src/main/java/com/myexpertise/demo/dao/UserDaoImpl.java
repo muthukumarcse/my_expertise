@@ -31,5 +31,4 @@ public class UserDaoImpl extends AbstractBaseDao<UserDO> implements UserDao{
         query.setParameter("email", email);
         return query.getResultList();
     }
-
 }
