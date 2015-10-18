@@ -21,7 +21,7 @@ public class UserController {
     
     @RequestMapping(value="/user/register", method={RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
-    public String getSampleString()
+    public String register()
     {
     	UserDO userDO =  new UserDO();
 		userDO.setActive(true);
