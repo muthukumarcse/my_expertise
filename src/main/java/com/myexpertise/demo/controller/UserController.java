@@ -3,14 +3,15 @@ package com.myexpertise.demo.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.codehaus.jackson.map.annotate.JsonView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.myexpertise.demo.dataobject.RoleDO;
 import com.myexpertise.demo.dataobject.UserDO;
+import com.myexpertise.demo.service.RoleService;
 import com.myexpertise.demo.service.UserService;
 
 @Controller
@@ -18,6 +19,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+    private RoleService roleService;
     
     @RequestMapping(value="/user/register", method={RequestMethod.POST,RequestMethod.GET})
     @ResponseBody
@@ -31,7 +35,9 @@ public class UserController {
 		userDO.setPhoneNumber("9659003535");
 		userDO.setUserName("Muthu");
 		userDO.setCompanyId("RAV-181");
-		userDO.setRole(1);
+		// Get user role by identifier and set to the user
+		RoleDO roleDO = roleService.getRoleByIdentifier("ADMIN");
+		userDO.setRole(roleDO);
     	userService.saveUser(userDO);
     	
         return "muthu";
