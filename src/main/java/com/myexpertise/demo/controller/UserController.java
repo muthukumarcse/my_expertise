@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,6 +14,7 @@ import com.myexpertise.demo.dataobject.RoleDO;
 import com.myexpertise.demo.dataobject.UserDO;
 import com.myexpertise.demo.service.RoleService;
 import com.myexpertise.demo.service.UserService;
+import com.myexpertise.demo.valueobject.UserVO;
 
 @Controller
 public class UserController {
@@ -23,9 +25,9 @@ public class UserController {
 	@Autowired
     private RoleService roleService;
     
-    @RequestMapping(value="/user/register", method={RequestMethod.POST,RequestMethod.GET})
+    @RequestMapping(value="/user/register", method={RequestMethod.POST})
     @ResponseBody
-    public String register()
+    public String register(@RequestBody UserVO user)
     {
     	UserDO userDO =  new UserDO();
 		userDO.setActive(true);
