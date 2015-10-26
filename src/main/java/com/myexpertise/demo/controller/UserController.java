@@ -1,7 +1,9 @@
 package com.myexpertise.demo.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,22 +29,25 @@ public class UserController {
     
     @RequestMapping(value="/user/register", method={RequestMethod.POST})
     @ResponseBody
-    public String register(@RequestBody UserVO user)
+    public Map<String, Integer> register(@RequestBody UserVO user)
     {
+    	// TODO : Validate the user request and throw error if validation fails.
+    	Map<String, Integer> response = new HashMap<String, Integer>();
     	UserDO userDO =  new UserDO();
 		userDO.setActive(true);
-		userDO.setEmailId("muthukumar.paramasivam@gmail.com");
-		userDO.setPassword("123456");
-		userDO.setPasswordHash("werastsdf");
-		userDO.setPhoneNumber("9659003535");
-		userDO.setUserName("Muthu");
-		userDO.setCompanyId("RAV-181");
+		userDO.setEmailId(user.getEmail());
+		userDO.setPassword(user.getPassword());
+		// TODO : Have to handle password and password hash
+		userDO.setPasswordHash(user.getPassword());
+		userDO.setPhoneNumber(user.getPhone());
+		userDO.setUserName(user.getName());
+		userDO.setCompanyId(user.getCompanyId());
 		// Get user role by identifier and set to the user
 		RoleDO roleDO = roleService.getRoleByIdentifier("ADMIN");
 		userDO.setRole(roleDO);
     	userService.saveUser(userDO);
-    	
-        return "muthu";
+    	response.put("success", 1);
+        return response;
     }
     
     @RequestMapping(value="/users", method=RequestMethod.GET, headers = "Accept=application/json")
